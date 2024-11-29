@@ -15,7 +15,7 @@ const Index = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const querySnapshot = await getDocs(collection(db, "users"));
+            const querySnapshot = await getDocs(collection(db, "users"),orderBy('id', 'desc'));
             const items = querySnapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -46,7 +46,7 @@ const Index = () => {
                                 <TableHead>
                                     <TableRow>
                                         <TableHeader>S.N</TableHeader>
-                                        <TableHeader>Photo</TableHeader>
+                                        <TableHeader>ID</TableHeader>
                                         <TableHeader>Title</TableHeader>
                                         <TableHeader>Diamond</TableHeader>
                                         <TableHeader>Action</TableHeader>
@@ -57,7 +57,8 @@ const Index = () => {
                                         <TableRow key={index}>
                                             <TableCell className="font-medium">{index+1}</TableCell>
                                             <TableCell className="font-medium">
-                                                <img src={user.photoURL} alt="photo" className="h-10 rounded border" />
+                                                {/* <img src={user.photoURL} alt="photo" className="h-10 rounded border" /> */}
+                                                {user.id}
                                             </TableCell>
                                             <TableCell className="font-medium">{user.name}</TableCell>
                                             <TableCell className="text-zinc-500">

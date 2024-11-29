@@ -198,14 +198,14 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                     className={classNames(
                                                         item.current
                                                             ? 'bg-gray-100 dark:bg-slate-900'
-                                                            : 'text-gray-800 dark:text-gray-400 dark:hover:bg-slate-900 hover:bg-gray-100 hover:text-indigo-600',
+                                                            : 'text-white dark:text-gray-400 dark:hover:bg-slate-900 hover:bg-gray-100 hover:text-indigo-600',
                                                         'group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6',
                                                     )}
                                                 >
                                                     <item.icon
                                                         aria-hidden="true"
                                                         className={classNames(
-                                                            item.current ? 'text-indigo-600 dark:text-gray-400' : 'text-gray-400',
+                                                            item.current ? 'text-indigo-600 dark:text-gray-400' : 'text-white',
                                                             'h-6 w-6 shrink-0',
                                                         )}
                                                     />
@@ -234,7 +234,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                                                                     href={subItem.href}
                                                                     className={classNames(
                                                                         subItem.current ? 'bg-gray-50' : 'hover:bg-gray-50',
-                                                                        'block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-gray-700',
+                                                                        'block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-white',
                                                                     )}
                                                                 >
                                                                     {subItem.name}

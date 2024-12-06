@@ -80,10 +80,17 @@ const Create = () => {
                                 {errors.diamond && <ErrorMessage>{errors.diamond}</ErrorMessage>}
                             </Field>
 
+                            <Field>
+                                <Label>Commission</Label>
+                                <Input
+                                    name="commission"
+                                    type="number"
+                                    value={data.commission}
+                                    onChange={(e) => setData('commission', e.target.value)}
+                                />
+                                {errors.commission && <ErrorMessage>{errors.commission}</ErrorMessage>}
+                            </Field>
 
-                            {/* <div className="max-w-sm">
-                                <ThumbnailInput name="thumbnail" setData={setData} errors={errors} placeholder="Thumbnail" />
-                            </div> */}
                             <div className="py-2">
                                 <SubmitButton />
                             </div>

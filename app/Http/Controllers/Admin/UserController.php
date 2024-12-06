@@ -93,4 +93,40 @@ class UserController extends Controller
     {
         return "disable Account";
     }
+
+    public function vipToggle($uid)
+    {
+        $firestore =  new FirestoreClient([
+            'projectId' => env('FIREBASE_PROJECT_ID')
+        ]);
+
+        $firebaseUser = $firestore->collection('users')->document($uid);
+
+        $user = $firebaseUser->snapshot()->data();
+
+        $firebaseUser->update([
+            ['path' => 'vip', 'value' => !$user['vip']]
+        ]);
+        // return to_route('admin.users');
+        return redirect()->back();
+    }
+
+
+    public function vvipToggle($uid)
+    {
+        $firestore =  new FirestoreClient([
+            'projectId' => env('FIREBASE_PROJECT_ID')
+        ]);
+
+        $firebaseUser = $firestore->collection('users')->document($uid);
+
+        $user = $firebaseUser->snapshot()->data();
+
+        $firebaseUser->update([
+            ['path' => 'vvip', 'value' => !$user['vvip']]
+        ]);
+        // return to_route('admin.users');
+        return redirect()->back();
+    }
+
 }

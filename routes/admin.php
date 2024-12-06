@@ -25,6 +25,7 @@ use App\Http\Controllers\ProfileController;
 
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('dashboard', [DashboarController::class, 'index'])->name('dashboard');
+    Route::get('diamond', [DashboarController::class, 'diamondPage'])->name('diamondpage');
     Route::resource('category', CategoryController::class);
     Route::get('settings', [SettingController::class, 'index'])->name('settings');
     Route::get('setting/agora', [SettingController::class, 'agora'])->name('settings.agora.create');
@@ -34,6 +35,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::prefix('users')->group(function(){
         Route::get('/', [UserController::class, 'index'])->name('admin.users');
         Route::post('/disable/{uid}', [UserController::class, 'disableAccount'])->name('admin.user.disable');
+        Route::post('/vip/{uid}', [UserController::class, 'vipToggle'])->name('admin.user.viptoggle');
+        Route::post('/vvip/{uid}', [UserController::class, 'vvipToggle'])->name('admin.user.vviptoggle');
     });
 
     // Users

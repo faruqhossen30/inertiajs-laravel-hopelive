@@ -31,30 +31,33 @@ class GiftController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'photoURL' => 'required',
-        //     'diamond' => 'required',
-        // ]);
+        $request->validate([
+            'name' => 'required',
+            'photoURL' => 'required',
+            'diamond' => 'required',
+            'commission' => 'required',
+        ]);
 
         try {
-            $db = new FirestoreClient([
-                'projectId' => 'mklive-ba68e',
+            $data = [
+                'name' => $request->name,
+                'photoURL' => $request->photoURL,
+                'diamond' => $request->diamond,
+                'commission' => $request->commission,
+                'total' => $request->diamond + $request->commission,
+            ];
+
+            $firestore =  new FirestoreClient([
+                'projectId' => env('FIREBASE_PROJECT_ID')
             ]);
 
-            $uid = 'PLnS5hpAslQgTIgaQA3MZFuw0yo1';
+            $firebaseUser = $firestore->collection('gifts')->add($data);
 
-            $firebaseUser = $db->collection('gifts')->document($uid);
 
-            $firebaseUser->update([
-                ['path' => 'isHost', 'value' => true]
-            ]);
-
-            return to_route('admin.user.show', $uid);
+            return to_route('gifts.index');
         } catch (\Throwable $th) {
             dd($th);
         }
-
     }
 
     /**
@@ -86,6 +89,12 @@ class GiftController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $firestore =  new FirestoreClient([
+            'projectId' => env('FIREBASE_PROJECT_ID')
+        ]);
+
+        $firebaseUser = $firestore->collection('gifts')->document($id)->delete();
+        return to_route('gifts.index');
+
     }
 }

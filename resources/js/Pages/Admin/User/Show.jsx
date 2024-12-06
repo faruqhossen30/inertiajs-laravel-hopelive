@@ -79,6 +79,39 @@ const Show = () => {
                     <DescriptionDetails>{user.level}</DescriptionDetails>
 
 
+                    <DescriptionTerm>VIP</DescriptionTerm>
+                    <DescriptionDetails>
+                        {user.vip ?
+                            <Link href={route('admin.user.viptoggle', user.uid)} method="post" as="button" className="flex text-red-500 items-center space-x-1 border p-1 rounded-md dark:border-gray-700 text-gray-500">
+                                <XMarkIcon className="w-4 h-4" />
+                                <span>Remove VIP</span>
+                            </Link>
+
+                            : <Link href={route('admin.user.viptoggle', user.uid)} method="post" as="button" className="flex text-red-500 items-center space-x-1 border p-1 rounded-md dark:border-gray-700 text-gray-500">
+                                <PlusIcon className="w-4 h-4" />
+                                <span>Add VIP</span>
+                            </Link>
+
+                        }
+                    </DescriptionDetails>
+
+                    <DescriptionTerm>VVIP</DescriptionTerm>
+                    <DescriptionDetails>
+                        {user.vip ?
+                            <Link href={route('admin.user.vviptoggle', user.uid)} method="post" as="button" className="flex text-red-500 items-center space-x-1 border p-1 rounded-md dark:border-gray-700 text-gray-500">
+                                <XMarkIcon className="w-4 h-4" />
+                                <span>Remove VVIP</span>
+                            </Link>
+
+                            : <Link href={route('admin.user.vviptoggle', user.uid)} method="post" as="button" className="flex text-red-500 items-center space-x-1 border p-1 rounded-md dark:border-gray-700 text-gray-500">
+                                <PlusIcon className="w-4 h-4" />
+                                <span>Add VVIP</span>
+                            </Link>
+
+                        }
+                    </DescriptionDetails>
+
+
 
 
                 </DescriptionList>}

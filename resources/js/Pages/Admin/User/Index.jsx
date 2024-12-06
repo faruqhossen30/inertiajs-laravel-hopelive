@@ -1,9 +1,9 @@
 import BreadcumComponent from '@/Components/Dashboard/BreadcumComponent'
 import { db } from '@/firebase'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { CogIcon, EyeIcon, GiftIcon, LockClosedIcon, PencilIcon } from '@heroicons/react/24/outline'
+import { CogIcon, EyeIcon, GiftIcon, LockClosedIcon, PencilIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Head, Link } from '@inertiajs/react'
-import { collection, getDocs,orderBy } from 'firebase/firestore'
+import { collection, getDocs, orderBy } from 'firebase/firestore'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
@@ -15,7 +15,7 @@ const Index = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const querySnapshot = await getDocs(collection(db, "users"),orderBy('id', 'desc'));
+            const querySnapshot = await getDocs(collection(db, "users"), orderBy('id', 'desc'));
             const items = querySnapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -49,13 +49,14 @@ const Index = () => {
                                         <TableHeader>ID</TableHeader>
                                         <TableHeader>Title</TableHeader>
                                         <TableHeader>Diamond</TableHeader>
+                                        <TableHeader>Status</TableHeader>
                                         <TableHeader>Action</TableHeader>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     {users.map((user, index) => (
                                         <TableRow key={index}>
-                                            <TableCell className="font-medium">{index+1}</TableCell>
+                                            <TableCell className="font-medium">{index + 1}</TableCell>
                                             <TableCell className="font-medium">
                                                 {/* <img src={user.photoURL} alt="photo" className="h-10 rounded border" /> */}
                                                 {user.id}
@@ -64,15 +65,25 @@ const Index = () => {
                                             <TableCell className="text-zinc-500">
                                                 {user.diamond}
                                             </TableCell>
+
+                                            <TableCell className="text-zinc-500 space-x-1">
+                                                {user.vip && <Badge color="green">VIP</Badge>}
+                                                {user.vvip && <Badge color="green">VVIP</Badge>}
+                                            </TableCell>
+
                                             <TableCell className="text-zinc-500 flex items-center space-x-1">
                                                 {/* <Link href="" className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
                                                     <CogIcon className="w-4 h-4" />
                                                 </Link> */}
+
+
+
+
                                                 {(user.status || user.status == null) &&
                                                     <Link href={route('admin.user.disable', user.uid)} method="post" as="button" className="flex text-red-500 items-center space-x-1 border p-1 rounded-md dark:border-gray-700 text-gray-500">
-                                                    <LockClosedIcon className="w-4 h-4" />
-                                                    <span>Disable</span>
-                                                </Link>
+                                                        <LockClosedIcon className="w-4 h-4" />
+                                                        <span>Disable</span>
+                                                    </Link>
                                                 }
 
                                                 <Link href={route('admin.user.show', user.uid)} className="border p-1 rounded-md dark:border-gray-700 text-gray-500">

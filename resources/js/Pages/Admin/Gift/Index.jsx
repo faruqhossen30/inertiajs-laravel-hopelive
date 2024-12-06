@@ -1,7 +1,7 @@
 import BreadcumComponent from '@/Components/Dashboard/BreadcumComponent'
 import { db } from '@/firebase'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import { CogIcon, EyeIcon, PencilIcon } from '@heroicons/react/24/outline'
+import { CogIcon, EyeIcon, PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
 import { Head, Link } from '@inertiajs/react'
 import { collection, getDocs } from 'firebase/firestore'
 import React, { useState } from 'react'
@@ -66,7 +66,8 @@ const Index = () => {
                                                 {item.diamond}
                                             </TableCell>
                                             <TableCell className="text-zinc-500">
-                                                {item.commission}
+                                                {/* {item.commission} */}
+                                                {/* {item.id} */}
                                             </TableCell>
                                             <TableCell className="text-zinc-500 flex items-center space-x-1">
                                                 <Link href="" className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
@@ -79,7 +80,10 @@ const Index = () => {
                                                 <Link href="#" className="border p-1 rounded-md dark:border-gray-700 text-green-500">
                                                     <PencilIcon className="w-4 h-5" />
                                                 </Link>
-                                                {/* <DeleteAlert title="product" href="" /> */}
+
+                                                <Link href={route('gifts.destroy', item.id)} method="Delete" as="button" className="border p-1 rounded-md dark:border-gray-700 text-gray-500">
+                                                    <TrashIcon className="w-4 h-4 text-red-500" />
+                                                </Link>
                                             </TableCell>
                                         </TableRow>
                                     ))}

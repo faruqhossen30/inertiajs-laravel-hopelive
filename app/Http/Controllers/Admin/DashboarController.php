@@ -12,4 +12,8 @@ class DashboarController extends Controller
     public function index(): Response{
         return Inertia::render('Admin/Dashboard');
     }
+
+    public function diamondPage(): Response{
+        return Inertia::render('Admin/DiamondPage');
+    }
 }

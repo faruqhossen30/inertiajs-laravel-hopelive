@@ -1,20 +1,70 @@
+import DashbardCard from '@/Components/Dashboard/DashbardCard';
+import { db } from '@/firebase';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { GiftIcon, MicrophoneIcon, UserGroupIcon, UserIcon, UsersIcon, VideoCameraIcon } from '@heroicons/react/24/outline';
 import { Head } from '@inertiajs/react';
+import { collection, getAggregateFromServer, getDocs } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 
 export default function Dashboard() {
+    const [countUser, setCountUser] = useState(0);
+    const [diamonds, setDiamonds] = useState(0);
+    const [hostCount, setHostCount] = useState(0);
+    const [agentCount, setAgentCount] = useState(0);
+    const [vip, sevVip] = useState(0);
+    const [vvip, sevVvip] = useState(0);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userQuerySnapshot = await getDocs(collection(db, "users"));
+            setCountUser(userQuerySnapshot.docs.length);
+
+            let totalDiamond = 0;
+            let totalhost = 0;
+            let totalAgent = 0;
+            let totalVip = 0;
+
+            userQuerySnapshot.forEach((doc) => {
+                const data = doc.data();
+                if (data.diamond) { // Ensure the field exists
+                    totalDiamond += data.diamond;
+                }
+                if(data.host){
+                    totalhost++;
+                }
+
+                if(data.agent){
+                    totalAgent++;
+                }
+
+                // Vip
+                if(data.vip){
+                    vip++;
+                }
+            });
+
+            setDiamonds(totalDiamond);
+            setHostCount(totalhost);
+            setAgentCount(totalAgent);
+            sevVip(totalVip);
+        };
+
+
+        fetchData();
+    }, []);
     return (
         <AuthenticatedLayout
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
         >
             <Head title="Dashboard" />
 
-            <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                        <div className="p-6 text-gray-900">You're logged in!</div>
-                    </div>
-                </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+                <DashbardCard title={countUser} subtitle="Total Users" icon={<UserGroupIcon className="w-6 h-6 text-white" />} />
+                <DashbardCard title={vip} subtitle="Total VIP" icon={<VideoCameraIcon className="w-6 h-6 text-white" />} />
+                {/* <DashbardCard title={agentCount} subtitle="Total Agent" icon={<UsersIcon className="w-6 h-6 text-white" />} /> */}
+                {/* <DashbardCard title={diamonds} subtitle="Total Diamond" icon={<GiftIcon className="w-6 h-6 text-white" />} /> */}
             </div>
+
         </AuthenticatedLayout>
     );
 }

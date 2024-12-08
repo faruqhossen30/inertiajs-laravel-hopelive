@@ -87,7 +87,7 @@ const Deposit = () => {
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>}
         >
             <Head title="Dashboard" />
-            <div className="py-12 bg-white p-5">
+            <div className="py-12 p-5 shadow bg-white dark:bg-slate-900">
 
                 {user && <DescriptionList>
                     <DescriptionTerm>Photo</DescriptionTerm>
@@ -129,7 +129,7 @@ const Deposit = () => {
                         <Label>Secret Password</Label>
                         <Input
                             name="password"
-                            type="string"
+                            type="password"
                             value={data.password}
                             onChange={(e) => setData('password', e.target.value)}
                         />

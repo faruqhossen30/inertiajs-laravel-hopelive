@@ -26,6 +26,7 @@ use App\Http\Controllers\ProfileController;
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('dashboard', [DashboarController::class, 'index'])->name('dashboard');
     Route::get('diamond', [DashboarController::class, 'diamondPage'])->name('diamondpage');
+    Route::get('transctions', [DashboarController::class, 'transctionsPage'])->name('transctionpage');
     Route::resource('category', CategoryController::class);
     Route::get('settings', [SettingController::class, 'index'])->name('settings');
     Route::get('setting/agora', [SettingController::class, 'agora'])->name('settings.agora.create');
@@ -50,8 +51,8 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('entry/frame', EntryFrameController::class);
     Route::resource('gift/animation', GiftAnimationController::class);
 
-    Route::get('audio/live', [AudioLiveController::class, 'index'])->name('admin.audio.live');
-    Route::get('video/live', [VideoLiveController::class, 'index'])->name('admin.video.live');
+    Route::get('active-live', [VideoLiveController::class, 'index'])->name('admin.video.live');
+    Route::post('active-live/{id}', [VideoLiveController::class, 'stopLive'])->name('admin.live.stop');
 
 
     Route::get('user/{uid}', [UserController::class, 'show'])->name('admin.user.show');

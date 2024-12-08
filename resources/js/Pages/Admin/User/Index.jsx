@@ -3,7 +3,7 @@ import { db } from '@/firebase'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { CogIcon, EyeIcon, GiftIcon, LockClosedIcon, PencilIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Head, Link } from '@inertiajs/react'
-import { collection, getDocs, orderBy } from 'firebase/firestore'
+import { collection, getDocs, orderBy, query } from 'firebase/firestore'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/table'
@@ -15,7 +15,11 @@ const Index = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const querySnapshot = await getDocs(collection(db, "users"), orderBy('id', 'desc'));
+
+            const collectionRef = collection(db, "users");
+            const q = query(collectionRef,orderBy("id", "asc"));
+            const querySnapshot = await getDocs(q);
+
             const items = querySnapshot.docs.map((doc) => ({
                 id: doc.id,
                 ...doc.data(),
@@ -46,8 +50,8 @@ const Index = () => {
                                 <TableHead>
                                     <TableRow>
                                         <TableHeader>S.N</TableHeader>
+                                        <TableHeader>Name</TableHeader>
                                         <TableHeader>ID</TableHeader>
-                                        <TableHeader>Title</TableHeader>
                                         <TableHeader>Diamond</TableHeader>
                                         <TableHeader>Status</TableHeader>
                                         <TableHeader>Action</TableHeader>
@@ -57,11 +61,11 @@ const Index = () => {
                                     {users.map((user, index) => (
                                         <TableRow key={index}>
                                             <TableCell className="font-medium">{index + 1}</TableCell>
+
+                                            <TableCell className="font-medium">{user.name}</TableCell>
                                             <TableCell className="font-medium">
-                                                {/* <img src={user.photoURL} alt="photo" className="h-10 rounded border" /> */}
                                                 {user.id}
                                             </TableCell>
-                                            <TableCell className="font-medium">{user.name}</TableCell>
                                             <TableCell className="text-zinc-500">
                                                 {user.diamond}
                                             </TableCell>

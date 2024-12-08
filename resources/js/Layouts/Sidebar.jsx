@@ -26,6 +26,7 @@ import {
     GifIcon,
     GiftIcon,
     HomeIcon,
+    ListBulletIcon,
     PhotoIcon,
     UserGroupIcon,
     UsersIcon,
@@ -44,12 +45,12 @@ function classNames(...classes) {
 const navigation = [
     { name: 'Dashboard', href: route('dashboard'), icon: HomeIcon, current: true },
     { name: 'Diamond', href: route('diamondpage'), icon: GiftIcon, current: false },
+    { name: 'Transction', href: route('transctionpage'), icon: ListBulletIcon, current: false },
     { name: 'Users', href: route('admin.users'), icon: UserGroupIcon, current: false },
-    { name: 'Audio Live', href: route('admin.audio.live'), icon: MicrophoneIcon, current: false },
-    { name: 'Video Live', href: route('admin.video.live'), icon: VideoCameraIcon, current: false },
+    { name: 'Active Live', href: route('admin.video.live'), icon: VideoCameraIcon, current: false },
     { name: 'Gifts', href: route('gifts.index'), icon: GiftIcon, current: false },
-    { name: 'Avatar', href: route('avatar.index'), icon: PhotoIcon, current: false },
-    { name: 'Entry frame', href: route('frame.index'), icon: FolderOpenIcon , current: false },
+    // { name: 'Avatar', href: route('avatar.index'), icon: PhotoIcon, current: false },
+    // { name: 'Entry frame', href: route('frame.index'), icon: FolderOpenIcon , current: false },
     // { name: 'Gift Animation', href: route('animation.index'), icon: GiftTopIcon, current: false },
 
 ];

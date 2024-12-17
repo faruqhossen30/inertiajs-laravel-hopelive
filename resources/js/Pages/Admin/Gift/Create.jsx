@@ -43,7 +43,7 @@ const Create = () => {
             <div className="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
                 <div className="bg-gray-100 border-b rounded-t-xl py-3 px-4 md:py-4 md:px-5 dark:bg-gray-800 dark:border-neutral-700">
                     <p className="mt-1 text-sm text-gray-500 dark:text-neutral-500">
-                        Category Create
+                        Gift Create
                     </p>
                 </div>
                 <div className="p-4 md:p-5">

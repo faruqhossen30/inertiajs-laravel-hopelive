@@ -21,7 +21,8 @@ class VideoLiveController extends Controller
             'projectId' => env('FIREBASE_PROJECT_ID')
         ]);
 
-        $firebaseUser = $firestore->collection('gifts')->document($id)->delete();
+        $firebaseUser = $firestore->collection('hosts')->document($id)->delete();
+
         // return to_route('gifts.index');
 
         return to_route('dashboard');

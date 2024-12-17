@@ -11,6 +11,9 @@ export default function DiamondPage() {
     const [todayTransctions, setTodayTransctions] = useState(0);
     const [todayTransctionDiamond, setTodayTransctionDiamond] = useState(0);
     const [todadyCommission, setTodayCommission] = useState(0);
+    // Monthly
+    const [monthlyTransction, setMonthlyTransction] = useState(0);
+    const [monthlyCommission, setMonthlyCommission] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -70,9 +73,45 @@ export default function DiamondPage() {
             setTodayCommission(commissions)
         };
 
+        const fetcMonthlyhData = async () => {
+            // Get the start and end of the current month
+            const now = new Date();
+            const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+            const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+
+            // Firestore expects timestamps for comparison
+            const startTimestamp = startOfMonth.getTime();
+            const endTimestamp = endOfMonth.getTime();
+
+            const q = query(
+                collectionGroup(db, "send"),
+                where("createdAt", ">=", startTimestamp),
+                where("createdAt", "<=", endTimestamp)
+              );
+
+            // Execute the query
+            const userQuerySnapshot = await getDocs(q);
+
+            let monthlyDiamond = 0;
+            let monthlyCommission = 0;
+
+            userQuerySnapshot.forEach((doc) => {
+                const data = doc.data();
+                if (data.diamond) { // Ensure the field exists
+                    monthlyDiamond += data.diamond;
+                }
+
+            });
+
+            setMonthlyTransction(monthlyDiamond);
+            setMonthlyCommission(monthlyDiamond);
+
+        };
+
 
         fetchData();
         fetchTranction();
+        fetcMonthlyhData();
     }, []);
     return (
         <AuthenticatedLayout
@@ -85,6 +124,9 @@ export default function DiamondPage() {
                 <DashbardCard title={todayTransctions} subtitle="Today Transction" icon={<GiftIcon className="w-6 h-6 text-white" />} />
                 <DashbardCard title={todayTransctionDiamond} subtitle="Today Transction Diamond" icon={<GiftIcon className="w-6 h-6 text-white" />} />
                 <DashbardCard title={todadyCommission} subtitle="Today Commission" icon={<GiftIcon className="w-6 h-6 text-white" />} />
+
+
+                <DashbardCard title={monthlyTransction} subtitle="Monthly Transction" icon={<GiftIcon className="w-6 h-6 text-white" />} />
             </div>
 
         </AuthenticatedLayout>

@@ -59,7 +59,9 @@ const Index = () => {
                                             </TableCell>
                                             <TableCell className="font-medium">{live.name}</TableCell>
                                             <TableCell className="font-medium">
-                                                <span className='flex items-center space-x-1'><UserGroupIcon className="w-4 h-4" /> <span>{live.users.length}</span></span>
+                                                <span className='flex items-center space-x-1'><UserGroupIcon className="w-4 h-4" />
+                                                    {/* <span>{live.users.length}</span> */}
+                                                </span>
                                             </TableCell>
                                             <TableCell className="text-zinc-500 flex items-center space-x-1">
                                                 <Link href={route('admin.live.stop', live.id)} method="post" as="button" className="flex text-red-500 items-center space-x-1 border p-1 rounded-md dark:border-gray-700">
